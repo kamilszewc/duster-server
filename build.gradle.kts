@@ -33,11 +33,14 @@ dependencies {
     implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity5")
     compileOnly("org.projectlombok:lombok")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-    runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
+    runtimeOnly("mysql:mysql-connector-java")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
+    implementation("io.jsonwebtoken:jjwt-api:0.11.1")
+    implementation("io.jsonwebtoken:jjwt-impl:0.11.1")
+    implementation("io.jsonwebtoken:jjwt-jackson:0.11.1")
 }
 
 tasks.withType<KotlinCompile> {
