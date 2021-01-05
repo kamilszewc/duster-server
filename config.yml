@@ -1,0 +1,36 @@
+# MySQL
+spring.datasource:
+  url: jdbc:mysql://localhost:3306/dusterserver
+  username: duster
+  password: dusterPassword
+spring.jpa:
+  database-platform: org.hibernate.dialect.MariaDB10Dialect
+  hibernate.ddl-auto: create-drop
+
+## SSL setup
+#server:
+#  ssl:
+#    key-store: /etc/letsencrypt/live/domain/keystore.p12
+#    key-store-password: password
+#    key-store-type: PKCS12
+#    key-alias: alias
+#    enabled-protocols: [TLSv1.2, TLSv1.3]
+#  port: 443
+server:
+  port: 8081
+
+# Credentials
+credentials:
+  admin-password: "password"
+  token-secret: "23423rwvt64jOIQI0D345trertavevrael;,efpmkmcsmdsdsfpJ2ID3D#"
+
+# Logging setup
+logging:
+  file:
+    name: dusterserver.log
+  level:
+    org.springframework: INFO
+    com.essteyr.mammothmanager: DEBUG
+
+
+
