@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ $# == 1 ]
+then
+    # Get config file path
+    CONFIG_PATH=`pwd`/$1
+
+    # Go to the directory of this script
+    cd `dirname $0`
+
+    # Launch duster-server
+    ./gradlew bootRun --args="--spring.config.location=$CONFIG_PATH" &
+else
+    echo "Usage: ./dusterServerRun path_to_config.yml"
+fi
