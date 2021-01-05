@@ -6,9 +6,6 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 
-enum class TemperatureUnit {
-    CELSIUS, FAHRENHEIT, KELVIN
-}
 
 @Entity(name="db_temperature")
 class TemperatureMeasurement(
@@ -19,4 +16,7 @@ class TemperatureMeasurement(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
 ) {
+    enum class TemperatureUnit {
+        CELSIUS, FAHRENHEIT, KELVIN
+    }
 }

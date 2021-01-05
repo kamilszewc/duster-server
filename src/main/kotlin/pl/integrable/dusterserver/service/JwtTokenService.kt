@@ -3,41 +3,27 @@ package pl.integrable.dusterserver.service
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.security.Keys
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import pl.integrable.dusterserver.model.Sensor
+import pl.integrable.dusterserver.property.CredentialsProperties
 import java.security.Key
 import java.time.Instant
 import java.time.temporal.ChronoUnit
 import java.util.*
 
 @Service
-class JwtTokenService {
-    private val JWT_SECRET = "dfgij038ucQbrwzetEETZVTrO#%ASCWA#rwe3f23r4f43sgdf@"
-    private val VALIDITY_HOURS = 87600 // Ten years
-//    fun generateToken(user: User, validityTime: Long?): String {
-//        val expirationTime = Instant.now().plus(validityTime!!, ChronoUnit.SECONDS)
-//        val expirationDate = Date.from(expirationTime)
-//        val key: Key = Keys.hmacShaKeyFor(JWT_SECRET.toByteArray())
-//        var role = "ROLE_USER"
-//        if (user.isAdmin()) {
-//            role = "ROLE_ADMIN"
-//        }
-//        return Jwts.builder()
-//            .claim("id", user.getId())
-//            .claim("sub", user.getUsername())
-//            .claim("role", role)
-//            .setExpiration(expirationDate)
-//            .signWith(key, SignatureAlgorithm.HS256)
-//            .compact()
-//    }
+class JwtTokenService @Autowired constructor(credentialsProperties: CredentialsProperties) {
+    private val JWT_SECRET = credentialsProperties.tokenSecret
 
-    fun generateToken(serviceName: String?, role: String?): String {
-        val expirationTime = Instant.now().plus(VALIDITY_HOURS.toLong(), ChronoUnit.HOURS)
+    fun generateToken(sensor: Sensor): String {
+        val expirationTime = Instant.now().plus(100000, ChronoUnit.SECONDS)
         val expirationDate = Date.from(expirationTime)
         val key: Key = Keys.hmacShaKeyFor(JWT_SECRET.toByteArray())
         return Jwts.builder()
-            .claim("id", null)
-            .claim("sub", serviceName)
-            .claim("role", role)
+            .claim("id", sensor.id)
+            .claim("sub", sensor.name)
+            .claim("role", "ROLE_SENSOR")
             .setExpiration(expirationDate)
             .signWith(key, SignatureAlgorithm.HS256)
             .compact()
@@ -49,12 +35,9 @@ class JwtTokenService {
             .setSigningKey(secretBytes)
             .build()
             .parseClaimsJws(token)
-        val name = jwsClaims.body
-            .subject
-        val role = jwsClaims.body
-            .get("role", String::class.java)
-        val id = jwsClaims.body
-            .get("id", Long::class.java)
+        val name = jwsClaims.body.subject
+        val role = jwsClaims.body.get("role", String::class.java)
+        val id = jwsClaims.body.get("id", Long::class.java)
         return JwtTokenPrincipal(id, name, role)
     }
 }

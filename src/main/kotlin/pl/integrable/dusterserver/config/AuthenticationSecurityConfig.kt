@@ -11,22 +11,31 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import pl.integrable.dusterserver.property.CredentialsProperties
+import pl.integrable.dusterserver.service.JwtAuthenticationFilter
+import pl.integrable.dusterserver.service.JwtTokenService
 import java.lang.Exception
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true) // Used to secure endpoints by annotation
 // Used to secure endpoints by annotation
-class AuthenticationSecurityConfig @Autowired constructor(
-)  : WebSecurityConfigurerAdapter() {
+class AuthenticationSecurityConfig  : WebSecurityConfigurerAdapter() {
+
+    @Autowired
+    val credentialsProperties = CredentialsProperties()
+
+    @Autowired
+    lateinit var jwtTokenService : JwtTokenService
 
     protected override fun configure(authenticationManagerBuilder: AuthenticationManagerBuilder) {
 
         authenticationManagerBuilder
             .inMemoryAuthentication()
-            .withUser("user")
-            .password("{noop}password")
-            .roles("USER");
+            .withUser("admin")
+            .password("{noop}" + credentialsProperties.adminPassword)
+            .roles("ADMIN");
     }
 
     protected override fun configure(httpSecurity: HttpSecurity) {
@@ -36,9 +45,11 @@ class AuthenticationSecurityConfig @Autowired constructor(
             .httpBasic()
             .and()
             .authorizeRequests()
-            .antMatchers("/**").permitAll()
+            .antMatchers("/api/v1/generateToken/**").hasRole("ADMIN")
+            .antMatchers("/**").hasRole("SENSOR")
             .and()
-            //.addFilterBefore(new JwtAuthenticationFilter(jwtTokenService), UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(
+                JwtAuthenticationFilter(jwtTokenService), UsernamePasswordAuthenticationFilter::class.java)
             .formLogin()
             .loginPage("/login")
             .defaultSuccessUrl("/")
@@ -52,10 +63,10 @@ class AuthenticationSecurityConfig @Autowired constructor(
             .permitAll();
     }
 
-    @Bean
-    fun passwordEncoder(): PasswordEncoder? {
-        return BCryptPasswordEncoder()
-    }
+//    @Bean
+//    fun passwordEncoder(): PasswordEncoder? {
+//        return BCryptPasswordEncoder()
+//    }
 
     @Bean
     @Throws(Exception::class)
