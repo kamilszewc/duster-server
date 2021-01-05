@@ -1,4 +1,4 @@
-package pl.integrable.dusterserver.controller
+package pl.integrable.dusterserver.controller.rest
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
@@ -18,7 +18,7 @@ class AdminRestContoller {
     @Autowired
     lateinit var sensorRepository: SensorRepository
 
-    @GetMapping("/api/v1/generateToken/{sensorName}")
+    @GetMapping("/api/v1/admin/generateToken/{sensorName}")
     fun generateToken(@PathVariable sensorName: String) : ResponseEntity<String> {
 
         val sensor = sensorRepository.findByName(sensorName)

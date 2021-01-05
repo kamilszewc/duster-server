@@ -45,15 +45,17 @@ class AuthenticationSecurityConfig  : WebSecurityConfigurerAdapter() {
             .httpBasic()
             .and()
             .authorizeRequests()
-            .antMatchers("/api/v1/generateToken/**").hasRole("ADMIN")
-            .antMatchers("/**").hasRole("SENSOR")
+            .antMatchers("/api/v1/admin/**").hasRole("ADMIN")
+            .antMatchers("/api/v1/**").hasRole("SENSOR")
+            .antMatchers("/admin/**").hasRole("ADMIN")
+            .antMatchers("/**").permitAll()
             .and()
             .addFilterBefore(
                 JwtAuthenticationFilter(jwtTokenService), UsernamePasswordAuthenticationFilter::class.java)
             .formLogin()
             .loginPage("/login")
-            .defaultSuccessUrl("/")
-            .failureUrl("/noaccount")
+            .defaultSuccessUrl("/admin")
+            .failureUrl("/error")
             .permitAll()
             .and()
             .logout()
@@ -62,11 +64,6 @@ class AuthenticationSecurityConfig  : WebSecurityConfigurerAdapter() {
             .logoutSuccessUrl("/")
             .permitAll();
     }
-
-//    @Bean
-//    fun passwordEncoder(): PasswordEncoder? {
-//        return BCryptPasswordEncoder()
-//    }
 
     @Bean
     @Throws(Exception::class)
