@@ -27,14 +27,14 @@ class PmMeasurementRestController @Autowired constructor(
         val name = (authentication.credentials as JwtTokenPrincipal).servicename
 
         val sensor = sensorRepository.findByName(name)
-        if (sensor != null) {
+        if (sensor.isPresent) {
 
             val pmMeasurement = PmMeasurement(
                 pmMeasurementExchange.pm10,
                 pmMeasurementExchange.pm25,
                 pmMeasurementExchange.pm100,
                 pmMeasurementExchange.date,
-                sensor
+                sensor.get()
             )
 
             pmMeasurementRepository.save(pmMeasurement)

@@ -43,20 +43,20 @@
         </div>
     </div>
 
-<!--    <div class="chart-atmospheric-container" style="position: relative; height:40vh">-->
-<!--        <canvas id="chart-atmospheric"></canvas>-->
-<!--    </div>-->
+    <div class="chart-atmospheric-container" style="position: relative; height:40vh">
+        <canvas id="chart-atmospheric"></canvas>
+    </div>
 
-<!--    <div class="card text-center border-light">-->
-<!--        <div class="card-body">-->
-<!--            <p class="card-text">-->
-<!--                Atmospheric mass concentration - refers to mass concentration value obtained by density of main pollutants of air as equivalent particles<br>-->
-<!--                - suitable for typical indoor/outdoor environments-->
-<!--            </p>-->
-<!--            <p>Last year and last month are averaged daily, last week is averaged hourly, other time-ranges are not averaged</p>-->
+    <div class="card text-center border-light">
+        <div class="card-body">
+            <p class="card-text">
+                Atmospheric mass concentration - refers to mass concentration value obtained by density of main pollutants of air as equivalent particles<br>
+                - suitable for typical indoor/outdoor environments
+            </p>
+            <p>Last year and last month are averaged daily, last week is averaged hourly, other time-ranges are not averaged</p>
 
-<!--        </div>-->
-<!--    </div>-->
+        </div>
+    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -75,7 +75,7 @@
                     label: 'pm1',
                     type: 'line',
                     pointRadius: 0,
-                    data: /*[[${plotPm10Atmospheric}]]*/ [],
+                    data: /*[[${plotPm10}]]*/ [],
                     borderWidth: 2,
                     borderColor: "rgb(75, 192, 192)",
                     fill: false
@@ -84,7 +84,7 @@
                         label: 'pm2.5',
                         type: 'line',
                         pointRadius: 0,
-                        data: /*[[${plotPm25Atmospheric}]]*/ [],
+                        data: /*[[${plotPm25}]]*/ [],
                         borderWidth: 2,
                         borderColor: "rgb(75, 92, 192)",
                         fill: false
@@ -93,7 +93,7 @@
                         label: 'pm10',
                         type: 'line',
                         pointRadius: 0,
-                        data: /*[[${plotPm100Atmospheric}]]*/ [],
+                        data: /*[[${plotPm100}]]*/ [],
                         borderWidth: 2,
                         borderColor: "rgb(75, 92, 19)",
                         fill: false

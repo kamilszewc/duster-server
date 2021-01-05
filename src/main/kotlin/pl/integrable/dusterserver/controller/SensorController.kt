@@ -6,10 +6,11 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestParam
-import pl.integrable.dusterserver.repository.PmMeasurementRepository
+import pl.integrable.dusterapp.provider.TemperatureMeasurementProvider
+import pl.integrable.dusterserver.provider.PmMeasurementProvider
 import pl.integrable.dusterserver.repository.SensorRepository
-import pl.integrable.dusterserver.repository.TemperatureMeasurementRepository
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @Controller
 class SensorController {
@@ -18,10 +19,8 @@ class SensorController {
     lateinit var sensorRepository: SensorRepository
 
     @Autowired
-    lateinit var pmMeasurementRepository: PmMeasurementRepository
+    lateinit var pmMeasurementProvider: PmMeasurementProvider
 
-    @Autowired
-    lateinit var temperatureMeasurementRepository: TemperatureMeasurementRepository
 
     @GetMapping("/sensors")
     fun sensors() : String {
@@ -69,13 +68,25 @@ class SensorController {
         if (sensor.isPresent) {
 
 
-            val pmMeasurements = pmMeasurementRepository.findAllByDateBetweenAndSensor(
-                LocalDateTime.now().minusDays(1),
-                LocalDateTime.now(),
-                sensor.get()
-                )
+            val pmMeasurements = pmMeasurementProvider.provideLastMeasurements(localTimeDate, averageType, sensor.get())
 
-            println(pmMeasurements.size)
+            val plotDate: MutableList<String> = mutableListOf()
+            val plotPm10: MutableList<Double> = mutableListOf()
+            val plotPm25: MutableList<Double> = mutableListOf()
+            val plotPm100: MutableList<Double> = mutableListOf()
+
+            pmMeasurements.forEach { measurement ->
+                measurement.date?.let { plotDate.add(it.format(DateTimeFormatter.ofPattern(pattern))) }
+                plotPm10.add(measurement.pm10)
+                plotPm25.add(measurement.pm25)
+                plotPm100.add(measurement.pm100)
+            }
+
+            model.addAttribute("plotDate", plotDate)
+            model.addAttribute("plotPm10", plotPm10)
+            model.addAttribute("plotPm25", plotPm25)
+            model.addAttribute("plotPm100", plotPm100)
+
 
             model.addAttribute("sensorId", sensorId)
             model.addAttribute("timeRange", timeRange)

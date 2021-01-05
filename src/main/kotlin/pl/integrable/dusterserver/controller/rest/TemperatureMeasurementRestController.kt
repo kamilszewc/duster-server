@@ -26,13 +26,13 @@ class TemperatureMeasurementRestController @Autowired constructor(
         val name = (authentication.credentials as JwtTokenPrincipal).servicename
 
         val sensor = sensorRepository.findByName(name)
-        if (sensor != null) {
+        if (sensor.isPresent) {
 
             val temperatureMeasurement = TemperatureMeasurement(
                 temperatureMeasurementExchange.temperature,
                 temperatureMeasurementExchange.unit,
                 temperatureMeasurementExchange.date,
-                sensor
+                sensor.get()
             )
 
             temperatureMeasurementRepository.save(temperatureMeasurement)

@@ -32,6 +32,7 @@ jobs:
           mkdir duster-server
           cp build/libs/* duster-server/
           cp config.yml duster-server/
+          cp dusterServerRunReleased duster-server/dusterServerRun
           cp duster-server.service duster-server/
           cp LICENSE duster-server/
           zip -r duster-server duster-server

@@ -20,6 +20,7 @@ class DusterServerApplication {
 
         var sensor = Sensor("name", "email@email", 100.0, 100.0, 100.0)
         sensorRepository.save(sensor)
+
     }
 }
 
