@@ -37,7 +37,7 @@ class JwtTokenService @Autowired constructor(credentialsProperties: CredentialsP
             .parseClaimsJws(token)
         val name = jwsClaims.body.subject
         val role = jwsClaims.body.get("role", String::class.java)
-        val id = jwsClaims.body.get("id", Long::class.java)
+        val id = jwsClaims.body.get("id", Integer::class.java)
         return JwtTokenPrincipal(id, name, role)
     }
 }

@@ -22,7 +22,7 @@ class AdminRestContoller {
     fun generateToken(@PathVariable sensorName: String) : ResponseEntity<String> {
 
         val sensor = sensorRepository.findByName(sensorName)
-        val token = jwtTokenService.generateToken(sensor)
+        val token = sensor?.let { jwtTokenService.generateToken(it) }
 
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(token)
     }

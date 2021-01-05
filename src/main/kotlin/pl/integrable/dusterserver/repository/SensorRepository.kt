@@ -6,5 +6,5 @@ import pl.integrable.dusterserver.model.Sensor
 interface SensorRepository : JpaRepository<Sensor, Long> {
 
     override fun findAll() : List<Sensor>
-    fun findByName(name: String) : Sensor
+    fun findByName(name: String) : Sensor?
 }

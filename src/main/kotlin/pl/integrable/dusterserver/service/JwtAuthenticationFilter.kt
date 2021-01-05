@@ -39,6 +39,6 @@ class JwtAuthenticationFilter(private val tokenService: JwtTokenService) : OnceP
         val jwtTokenPrincipal: JwtTokenPrincipal = tokenService.parseToken(token)
         val authorities: MutableList<GrantedAuthority> = ArrayList()
         authorities.add(SimpleGrantedAuthority(jwtTokenPrincipal.role))
-        return UsernamePasswordAuthenticationToken(jwtTokenPrincipal, null, authorities)
+        return UsernamePasswordAuthenticationToken(jwtTokenPrincipal, jwtTokenPrincipal, authorities)
     }
 }
