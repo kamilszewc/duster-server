@@ -9,7 +9,7 @@ then
     cd `dirname $0`
 
     # Launch duster-server
-    java -jar *.jar --spring.config.location="$CONFIG_PATH" &
+    java -jar *.jar --spring.config.location="$CONFIG_PATH"
 else
     echo "Usage: ./dusterServerRun path_to_config.yml"
 fi
