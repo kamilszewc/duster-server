@@ -60,7 +60,7 @@
                 <td><p th:text="${sensor.longitude}"/></td>
                 <td><p th:text="${sensor.latitude}"/></td>
                 <td>
-                    <a th:href="@{'/sensor/?time-range=day' + ${sensor.id}}" class="btn btn-primary">Details</a>
+                    <a th:href="@{'/sensor/' + ${sensor.id} + '?time-range=day'}" class="btn btn-primary">Details</a>
                 </td>
             </tr>
             </tbody>
