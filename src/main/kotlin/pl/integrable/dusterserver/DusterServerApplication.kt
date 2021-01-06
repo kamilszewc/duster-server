@@ -18,8 +18,8 @@ class DusterServerApplication {
     @Bean
     fun init(sensorRepository: SensorRepository) = CommandLineRunner {
 
-//        var sensor = Sensor("name", "email@email", 100.0, 100.0, 100.0)
-//        sensorRepository.save(sensor)
+        var sensor = Sensor("name", "email@email", 100.0, 100.0, 100.0)
+        sensorRepository.save(sensor)
 
     }
 }

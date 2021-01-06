@@ -117,17 +117,14 @@ class SensorController {
 
             val plotTemperatureDate: MutableList<String> = mutableListOf()
             val plotTemperature: MutableList<Double> = mutableListOf()
-            var plotTemperatureUnit = TemperatureMeasurement.TemperatureUnit.CELSIUS
 
             temperatureMeasurements.forEach { measurement ->
                 measurement.date?.let { plotTemperatureDate.add(it.format(DateTimeFormatter.ofPattern(pattern))) }
                 plotTemperature.add(measurement.temperature)
-                plotTemperatureUnit = measurement.unit
             }
 
             model.addAttribute("plotTemperatureDate", plotTemperatureDate)
             model.addAttribute("plotTemperature", plotTemperature)
-            model.addAttribute("plotTemperatureUnit", plotTemperatureUnit)
 
             model.addAttribute("sensorId", sensorId)
             model.addAttribute("timeRange", timeRange)

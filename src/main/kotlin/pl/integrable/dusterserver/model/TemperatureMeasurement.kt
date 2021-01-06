@@ -7,7 +7,6 @@ import javax.persistence.*
 @Entity(name="db_temperature")
 class TemperatureMeasurement(
     var temperature: Double,
-    var unit: TemperatureUnit,
     var date: LocalDateTime,
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="sensor_id", nullable = false)
@@ -16,7 +15,4 @@ class TemperatureMeasurement(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
 ) {
-    enum class TemperatureUnit {
-        CELSIUS, FAHRENHEIT, KELVIN
-    }
 }

@@ -27,7 +27,6 @@ class TemperatureMeasurementProvider @Autowired constructor(val temperatureMeasu
                 val fromMoment = untilMoment.minusHours(1)
                 val measurement = TemperatureMeasurementExchange(
                     0.0,
-                    TemperatureMeasurement.TemperatureUnit.CELSIUS,
                     untilMoment.withMinute(30)
                 )
                 val measurements = temperatureMeasurementRepository.findAllByDateBetweenAndSensor(fromMoment, untilMoment, sensor)
@@ -37,7 +36,6 @@ class TemperatureMeasurementProvider @Autowired constructor(val temperatureMeasu
                 }
 
                 measurement.temperature /= measurements.size
-                if (measurements.isNotEmpty()) measurement.unit = measurements[0].unit
 
                 averagedTemperatureMeasurements.add(measurement)
 
@@ -56,7 +54,6 @@ class TemperatureMeasurementProvider @Autowired constructor(val temperatureMeasu
                 val fromMoment = untilMoment.minusDays(1)
                 val measurement = TemperatureMeasurementExchange(
                     0.0,
-                    TemperatureMeasurement.TemperatureUnit.CELSIUS,
                     untilMoment.withHour(12)
                 )
                 val measurements = temperatureMeasurementRepository.findAllByDateBetweenAndSensor(fromMoment, untilMoment, sensor)
@@ -68,7 +65,6 @@ class TemperatureMeasurementProvider @Autowired constructor(val temperatureMeasu
                 measurement.temperature /= measurements.size
 
                 averageTemperatureMeasurements.add(measurement)
-                if (measurements.isNotEmpty()) measurement.unit = measurements[0].unit
 
                 untilMoment = fromMoment
             }
@@ -81,7 +77,7 @@ class TemperatureMeasurementProvider @Autowired constructor(val temperatureMeasu
             val temperatureMeasurements: MutableList<TemperatureMeasurementExchange> = mutableListOf()
 
             measurements.forEach {
-                val measurement = TemperatureMeasurementExchange(it.temperature, it.unit, it.date)
+                val measurement = TemperatureMeasurementExchange(it.temperature, it.date)
                 temperatureMeasurements.add(measurement)
             }
 
