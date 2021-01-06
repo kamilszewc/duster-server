@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestParam
 import pl.integrable.dusterserver.model.TemperatureMeasurement
+import pl.integrable.dusterserver.provider.HumidityMeasurementProvider
 import pl.integrable.dusterserver.provider.TemperatureMeasurementProvider
 import pl.integrable.dusterserver.provider.PmMeasurementProvider
+import pl.integrable.dusterserver.provider.PressureMeasurementProvider
 import pl.integrable.dusterserver.repository.SensorRepository
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -24,6 +26,12 @@ class SensorController {
 
     @Autowired
     lateinit var temperatureMeasurementProvider: TemperatureMeasurementProvider
+
+    @Autowired
+    lateinit var pressureMeasurementProvider: PressureMeasurementProvider
+
+    @Autowired
+    lateinit var humidityMeasurementProvider: HumidityMeasurementProvider
 
 
     @GetMapping("/sensors")
@@ -125,6 +133,52 @@ class SensorController {
 
             model.addAttribute("plotTemperatureDate", plotTemperatureDate)
             model.addAttribute("plotTemperature", plotTemperature)
+
+
+            // Pressure
+
+            val pressureMeasurements = pressureMeasurementProvider.provideLastMeasurements(localTimeDate, averageType, sensor.get())
+
+            var havePressure = false
+            if (pressureMeasurements.size != 0) {
+                havePressure = true
+            }
+            model.addAttribute("havePressure", havePressure)
+
+            val plotPressureDate: MutableList<String> = mutableListOf()
+            val plotPressure: MutableList<Double> = mutableListOf()
+
+            pressureMeasurements.forEach { measurement ->
+                measurement.date?.let { plotPressureDate.add(it.format(DateTimeFormatter.ofPattern(pattern))) }
+                plotPressure.add(measurement.pressure)
+            }
+
+            model.addAttribute("plotPressureDate", plotPressureDate)
+            model.addAttribute("plotPressure", plotPressure)
+
+            // Humidity
+
+            val humidityMeasurements = humidityMeasurementProvider.provideLastMeasurements(localTimeDate, averageType, sensor.get())
+
+            var haveHumidity = false
+            if (humidityMeasurements.size != 0) {
+                haveHumidity = true
+            }
+            model.addAttribute("haveHumidity", haveHumidity)
+
+            val plotHumidityDate: MutableList<String> = mutableListOf()
+            val plotHumidity: MutableList<Double> = mutableListOf()
+
+            humidityMeasurements.forEach { measurement ->
+                measurement.date?.let { plotHumidityDate.add(it.format(DateTimeFormatter.ofPattern(pattern))) }
+                plotHumidity.add(measurement.humidity)
+            }
+
+            model.addAttribute("plotHumidityDate", plotHumidityDate)
+            model.addAttribute("plotHumidity", plotHumidity)
+
+
+
 
             model.addAttribute("sensorId", sensorId)
             model.addAttribute("timeRange", timeRange)

@@ -44,21 +44,47 @@
     </div>
 
     <div id="pm" th:if="${havePm}">
+        <h5 class="text-center">Particulate Matter Concentration</h5>
         <div class="chart-atmospheric-container" style="position: relative; height:40vh">
             <canvas id="chart-atmospheric"></canvas>
         </div>
+    </div>
 
-        <div class="card text-center border-light">
-            <div class="card-body">
-                <p class="card-text">
-                    Atmospheric mass concentration - refers to mass concentration value obtained by density of main pollutants of air as equivalent particles<br>
-                    - suitable for typical indoor/outdoor environments
-                </p>
-                <p>Last year and last month are averaged daily, last week is averaged hourly, other time-ranges are not averaged</p>
+    <br>
 
-            </div>
+    <div id="temperature" th:if="${haveTemperature}">
+        <h5 class="text-center">Temperature</h5>
+        <div class="chart-temperature-container" style="position: relative; height:40vh">
+            <canvas id="chart-temperature"></canvas>
         </div>
     </div>
+
+    <br>
+
+    <div id="pressure" th:if="${havePressure}">
+        <h5 class="text-center">Pressure</h5>
+        <div class="chart-pressure-container" style="position: relative; height:40vh">
+            <canvas id="chart-pressure"></canvas>
+        </div>
+    </div>
+
+    <br>
+
+    <div id="humidity" th:if="${haveHumidity}">
+        <h5 class="text-center">Humidity</h5>
+        <div class="chart-humidity-container" style="position: relative; height:40vh">
+            <canvas id="chart-humidity"></canvas>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="card text-center border-light">
+        <div class="card-body">
+            <p>Last year and last month are averaged daily, last week is averaged hourly, other time-ranges are not averaged</p>
+        </div>
+    </div>
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -102,6 +128,126 @@
                     }]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        maxRotation: 90,
+                        minRotation: 90
+                    }
+                }]
+            }
+        }
+    });
+</script>
+
+<script th:inline="javascript">
+    var ctx = document.getElementById('chart-temperature');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: /*[[${plotTemperatureDate}]]*/ [],
+            datasets:
+                [{
+                    label: 'Temperature',
+                    type: 'line',
+                    pointRadius: 0,
+                    data: /*[[${plotTemperature}]]*/ [],
+                    borderWidth: 2,
+                    borderColor: "rgb(75, 192, 192)",
+                    fill: false
+                }]
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        maxRotation: 90,
+                        minRotation: 90
+                    }
+                }]
+            }
+        }
+    });
+</script>
+
+<script th:inline="javascript">
+    var ctx = document.getElementById('chart-pressure');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: /*[[${plotPressureDate}]]*/ [],
+            datasets:
+                [{
+                    label: 'Temperature',
+                    type: 'line',
+                    pointRadius: 0,
+                    data: /*[[${plotPressure}]]*/ [],
+                    borderWidth: 2,
+                    borderColor: "rgb(75, 192, 192)",
+                    fill: false
+                }]
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        maxRotation: 90,
+                        minRotation: 90
+                    }
+                }]
+            }
+        }
+    });
+</script>
+
+<script th:inline="javascript">
+    var ctx = document.getElementById('chart-humidity');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: /*[[${plotHumidityDate}]]*/ [],
+            datasets:
+                [{
+                    label: 'Temperature',
+                    type: 'line',
+                    pointRadius: 0,
+                    data: /*[[${plotHumidity}]]*/ [],
+                    borderWidth: 2,
+                    borderColor: "rgb(75, 192, 192)",
+                    fill: false
+                }]
+        },
+        options: {
+            legend: {
+                display: false
+            },
             responsive: true,
             maintainAspectRatio: false,
             scales: {

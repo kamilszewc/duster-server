@@ -2,8 +2,8 @@ package pl.integrable.dusterserver.payload
 
 import java.time.LocalDateTime
 
-class TemperatureMeasurementExchange(
-    var temperature: Double,
+class PressureMeasurementExchange(
+    var pressure: Double,
     var date: LocalDateTime
 ) {
 }
