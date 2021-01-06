@@ -26,6 +26,7 @@
 </nav>
 
 <div class="container">
+
     <div class="card text-center border-light">
         <div class="card-body">
             <h5 class="card-title">Sensors</h5>
@@ -33,6 +34,37 @@
                 Here will be map with sensors<br>
             </p>
         </div>
+    </div>
+
+    <div class="card text-center border-light">
+        <div class="card-body">
+            <h5 class="card-title">List of sensors</h5>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-8">
+        <table class="table table-stripped">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scopr="col">Longitude</th>
+                <th scope="col">Latitude</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="sensor: ${sensors}">
+                <td><p th:text="${sensor.id}"/></td>
+                <td><p th:text="${sensor.name}"/></td>
+                <td><p th:text="${sensor.longitude}"/></td>
+                <td><p th:text="${sensor.latitude}"/></td>
+                <td>
+                    <a th:href="@{'/sensor/' + ${sensor.id}}" class="btn btn-primary">Details</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
 </div>

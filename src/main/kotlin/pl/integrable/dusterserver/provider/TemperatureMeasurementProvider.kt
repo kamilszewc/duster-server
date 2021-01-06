@@ -1,4 +1,4 @@
-package pl.integrable.dusterapp.provider
+package pl.integrable.dusterserver.provider
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service

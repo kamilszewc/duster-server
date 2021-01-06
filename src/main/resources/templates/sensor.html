@@ -43,18 +43,20 @@
         </div>
     </div>
 
-    <div class="chart-atmospheric-container" style="position: relative; height:40vh">
-        <canvas id="chart-atmospheric"></canvas>
-    </div>
+    <div id="pm" th:if="${havePm}">
+        <div class="chart-atmospheric-container" style="position: relative; height:40vh">
+            <canvas id="chart-atmospheric"></canvas>
+        </div>
 
-    <div class="card text-center border-light">
-        <div class="card-body">
-            <p class="card-text">
-                Atmospheric mass concentration - refers to mass concentration value obtained by density of main pollutants of air as equivalent particles<br>
-                - suitable for typical indoor/outdoor environments
-            </p>
-            <p>Last year and last month are averaged daily, last week is averaged hourly, other time-ranges are not averaged</p>
+        <div class="card text-center border-light">
+            <div class="card-body">
+                <p class="card-text">
+                    Atmospheric mass concentration - refers to mass concentration value obtained by density of main pollutants of air as equivalent particles<br>
+                    - suitable for typical indoor/outdoor environments
+                </p>
+                <p>Last year and last month are averaged daily, last week is averaged hourly, other time-ranges are not averaged</p>
 
+            </div>
         </div>
     </div>
 </div>
@@ -69,7 +71,7 @@
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: /*[[${plotDate}]]*/ [],
+            labels: /*[[${plotPmDate}]]*/ [],
             datasets:
                 [{
                     label: 'pm1',
