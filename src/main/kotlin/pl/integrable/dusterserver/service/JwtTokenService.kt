@@ -17,7 +17,7 @@ class JwtTokenService @Autowired constructor(credentialsProperties: CredentialsP
     private val JWT_SECRET = credentialsProperties.tokenSecret
 
     fun generateToken(sensor: Sensor): String {
-        val expirationTime = Instant.now().plus(100000, ChronoUnit.SECONDS)
+        val expirationTime = Instant.now().plus(315360000, ChronoUnit.SECONDS) // Ten years
         val expirationDate = Date.from(expirationTime)
         val key: Key = Keys.hmacShaKeyFor(JWT_SECRET.toByteArray())
         return Jwts.builder()
