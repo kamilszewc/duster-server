@@ -44,7 +44,7 @@
     </div>
 
     <div id="pm" th:if="${havePm}">
-        <h5 class="text-center">Particulate Matter Concentration</h5>
+        <h5 class="text-center">Particulate Matter Concentration [&mu;g/m&sup3;]</h5>
         <div class="chart-atmospheric-container" style="position: relative; height:40vh">
             <canvas id="chart-atmospheric"></canvas>
         </div>
@@ -53,7 +53,7 @@
     <br>
 
     <div id="temperature" th:if="${haveTemperature}">
-        <h5 class="text-center">Temperature</h5>
+        <h5 class="text-center">Temperature [&deg;C]</h5>
         <div class="chart-temperature-container" style="position: relative; height:40vh">
             <canvas id="chart-temperature"></canvas>
         </div>
@@ -62,7 +62,7 @@
     <br>
 
     <div id="pressure" th:if="${havePressure}">
-        <h5 class="text-center">Pressure</h5>
+        <h5 class="text-center">Pressure [hPa]</h5>
         <div class="chart-pressure-container" style="position: relative; height:40vh">
             <canvas id="chart-pressure"></canvas>
         </div>
@@ -71,7 +71,7 @@
     <br>
 
     <div id="humidity" th:if="${haveHumidity}">
-        <h5 class="text-center">Humidity</h5>
+        <h5 class="text-center">Humidity [%]</h5>
         <div class="chart-humidity-container" style="position: relative; height:40vh">
             <canvas id="chart-humidity"></canvas>
         </div>
@@ -173,7 +173,6 @@
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true
                     }
                 }],
                 xAxes: [{
@@ -195,7 +194,7 @@
             labels: /*[[${plotPressureDate}]]*/ [],
             datasets:
                 [{
-                    label: 'Temperature',
+                    label: 'Pressure',
                     type: 'line',
                     pointRadius: 0,
                     data: /*[[${plotPressure}]]*/ [],
@@ -213,7 +212,8 @@
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true
+                        min: 900,
+                        max: 1100
                     }
                 }],
                 xAxes: [{
@@ -253,6 +253,8 @@
             scales: {
                 yAxes: [{
                     ticks: {
+                        min: 0,
+                        max: 100,
                         beginAtZero: true
                     }
                 }],
