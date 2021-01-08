@@ -6,6 +6,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-ui.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
 
     <title>Information</title>
 </head>
@@ -35,6 +40,9 @@
             </p>
         </div>
     </div>
+
+<!--    <div style="width: 640px; height: 480px" id="mapContainer"></div>-->
+    <div style="position: relative; height:50vh" id="mapContainer"></div>
 
     <div class="card text-center border-light">
         <div class="card-body">
@@ -79,6 +87,88 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js" integrity="sha512-zO8oeHCxetPn1Hd9PdDleg5Tw1bAaP0YmNvPY8CwcRyUk7d7/+nyElmFrB6f7vg4f7Fv4sui1mcep8RIEShczg==" crossorigin="anonymous"></script>
 
+<script type="text/javascript" charset="utf-8" th:inline="javascript">
+
+    function moveMapToLocation(map){
+        map.setCenter({lat: /*[[${latitude}]]*/ 0.0, lng: /*[[${longitude}]]*/ 0.0});
+        map.setZoom(/*[[${zoom}]]*/ 12);
+    }
+
+    // Initialize the platform object:
+    var platform = new H.service.Platform({
+        'apikey': /*[[${apikey}]]*/ ''
+    });
+
+    // Obtain the default map types from the platform object
+    var defaultLayers = platform.createDefaultLayers();
+
+    // Instantiate (and display) a map object:
+    var map = new H.Map(
+        document.getElementById('mapContainer'),
+        defaultLayers.vector.normal.map,
+        {
+            zoom: 12,
+            center: { lng: 18.59814, lat: 53.01375 },
+            pixelRatio: window.devicePixelRatio || 1
+        });
+
+    var ui = H.ui.UI.createDefault(map, defaultLayers)
+
+    var mapSettings = ui.getControl('mapsettings');
+    var zoom = ui.getControl('zoom');
+    var scalebar = ui.getControl('scalebar');
+
+    mapSettings.setAlignment('top-left');
+    zoom.setAlignment('top-left');
+    scalebar.setAlignment('top-left');
+
+    // add a resize listener to make sure that the map occupies the whole container
+    window.addEventListener('resize', () => map.getViewPort().resize());
+
+    // Make the map interactive
+    // MapEvents enables the event system
+    // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
+    var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+
+    // Create the default UI components
+    var ui = H.ui.UI.createDefault(map, defaultLayers);
+
+
+    function pointer(color, link) {
+        return '<svg width="24" height="24" ' +
+            'xmlns="http://www.w3.org/2000/svg">' +
+            '<a xlink:href="' + link + '">' +
+            '<circle fill="' + color + '" cx="10" cy="10" r="10" width="22" height="22" />' +
+            '<text x="10" y="16" font-size="12pt" font-family="Arial" font-weight="bold" text-anchor="middle" ' +
+            'fill="white">S</text>' +
+            '</a>' +
+            '</svg>';
+    }
+
+    function addSensor(map, lat, lng, color, link) {
+
+        // Create an icon object, an object with geographic coordinates and a marker:
+        var icon = new H.map.DomIcon(pointer(color, link)),
+            coords = {lat: lat, lng: lng},
+            marker = new H.map.DomMarker(coords, {icon: icon});
+
+        map.addObject(marker);
+    }
+
+    var longitudes = /*[[${longitudes}]]*/ []
+    var latitudes = /*[[${latitudes}]]*/ []
+    var colors = /*[[${colors}]]*/ []
+    var links = /*[[${links}]]*/ []
+
+    for (i = 0; i< longitudes.length; i++) {
+        addSensor(map, latitudes[i], longitudes[i], colors[i], links[i])
+    }
+
+    // Now use the map as required...
+    window.onload = function () {
+        moveMapToLocation(map);
+    }
+</script>
 
 </body>
 </html>

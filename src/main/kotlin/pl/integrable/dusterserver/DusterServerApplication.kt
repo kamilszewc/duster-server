@@ -7,18 +7,20 @@ import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
 import pl.integrable.dusterserver.model.Sensor
 import pl.integrable.dusterserver.property.CredentialsProperties
+import pl.integrable.dusterserver.property.MapProperties
 import pl.integrable.dusterserver.repository.SensorRepository
 
 @SpringBootApplication
 @EnableConfigurationProperties(
-    CredentialsProperties::class
+    CredentialsProperties::class,
+    MapProperties::class
 )
 class DusterServerApplication {
 
     @Bean
     fun init(sensorRepository: SensorRepository) = CommandLineRunner {
 
-        var sensor = Sensor("name", "email@email", 100.0, 100.0, 100.0)
+        var sensor = Sensor("name", "email@email", 18.59814, 53.01375, 100.0)
         sensorRepository.save(sensor)
 
     }

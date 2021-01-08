@@ -24,6 +24,13 @@ credentials:
   admin-password: "password"
   token-secret: "23423rwvt64jOIQI0D345trertavevrael;,efpmkmcsmdsdsfpJ2ID3D#"
 
+# Map settings
+map:
+  latitude: 53.01375
+  longitude: 18.59814
+  zoom: 12
+  apikey: ""
+
 # Logging setup
 logging:
   file:

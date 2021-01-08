@@ -34,17 +34,6 @@ class SensorController {
     lateinit var humidityMeasurementProvider: HumidityMeasurementProvider
 
 
-    @GetMapping("/sensors")
-    fun sensors(model: Model) : String {
-
-        val sensors = sensorRepository.findAll()
-
-        model.addAttribute("sensors", sensors)
-
-        return "sensors"
-    }
-
-
     @GetMapping("/sensor/{sensorId}")
     fun sensor(@PathVariable sensorId: Long,
                @RequestParam(required = true, name = "time-range") timeRange: String?,
@@ -176,7 +165,6 @@ class SensorController {
 
             model.addAttribute("plotHumidityDate", plotHumidityDate)
             model.addAttribute("plotHumidity", plotHumidity)
-
 
 
 
