@@ -1,4 +1,4 @@
 ### Changelog
 
-#### v0.1-alpha (XXX)
-XXX
+#### v0.13-alpha (8.01.2021)
+- Added HERE map
