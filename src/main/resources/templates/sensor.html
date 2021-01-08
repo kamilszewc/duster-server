@@ -20,8 +20,8 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
 
-            <li><a class="nav-item nav-link" href="/sensors">Sensors<span class="sr-only">(current)</span></a></li>
-            <li><a class="nav-item nav-link" href="/information">Information<span class="sr-only">(current)</span></a></li>
+            <li><a class="nav-item nav-link" href="/sensors" th:text="#{Sensors}"><span class="sr-only">(current)</span></a></li>
+            <li><a class="nav-item nav-link" href="/information" th:text="#{Information}"><span class="sr-only">(current)</span></a></li>
         </ul>
     </div>
 </nav>
@@ -31,20 +31,20 @@
         <div class="card-body">
             <h4 class="card-title">Sensor</h4>
             <form th:action="@{'/sensor/' + ${sensorId}}" method="get">
-                <label for="time-range">Select the time range:</label>
+                <label for="time-range" th:text="#{SelectTheTimeRange}"></label>
                 <select id="time-range" th:name="time-range" class="form-select" aria-label="Default select example" onchange="this.form.submit()">
-                    <option th:value="hour" th:selected="${timeRange == 'hour'}">Last hour</option>
-                    <option th:value="day" th:selected="${timeRange == 'day'}">Last day</option>
-                    <option th:value="week" th:selected="${timeRange == 'week'}">Last week</option>
-                    <option th:value="month" th:selected="${timeRange == 'month'}">Last month</option>
-                    <option th:value="year" th:selected="${timeRange == 'year'}">Last year</option>
+                    <option th:value="hour" th:selected="${timeRange == 'hour'}" th:text="#{LastHour}"></option>
+                    <option th:value="day" th:selected="${timeRange == 'day'}" th:text="#{LastDay}"></option>
+                    <option th:value="week" th:selected="${timeRange == 'week'}" th:text="#{LastWeek}"></option>
+                    <option th:value="month" th:selected="${timeRange == 'month'}" th:text="#{LastMonth}"></option>
+                    <option th:value="year" th:selected="${timeRange == 'year'}" th:text="#{LastYear}"></option>
                 </select>
             </form>
         </div>
     </div>
 
     <div id="pm" th:if="${havePm}">
-        <h5 class="text-center">Particulate Matter Concentration [&mu;g/m&sup3;]</h5>
+        <h5 class="text-center" ><span th:text="#{ParticulateMatterConcentration}"/> [&mu;g/m&sup3;]</h5>
         <div class="chart-atmospheric-container" style="position: relative; height:40vh">
             <canvas id="chart-atmospheric"></canvas>
         </div>
@@ -53,7 +53,7 @@
     <br>
 
     <div id="temperature" th:if="${haveTemperature}">
-        <h5 class="text-center">Temperature [&deg;C]</h5>
+        <h5 class="text-center"><span th:text="#{Temperature}"/> [&deg;C]</h5>
         <div class="chart-temperature-container" style="position: relative; height:40vh">
             <canvas id="chart-temperature"></canvas>
         </div>
@@ -62,7 +62,7 @@
     <br>
 
     <div id="pressure" th:if="${havePressure}">
-        <h5 class="text-center">Pressure [hPa]</h5>
+        <h5 class="text-center"><span th:text="#{Pressure}"/> [hPa]</h5>
         <div class="chart-pressure-container" style="position: relative; height:40vh">
             <canvas id="chart-pressure"></canvas>
         </div>
@@ -71,7 +71,7 @@
     <br>
 
     <div id="humidity" th:if="${haveHumidity}">
-        <h5 class="text-center">Humidity [%]</h5>
+        <h5 class="text-center"><span th:text="#{Humidity}"/> [%]</h5>
         <div class="chart-humidity-container" style="position: relative; height:40vh">
             <canvas id="chart-humidity"></canvas>
         </div>
@@ -81,7 +81,7 @@
 
     <div class="card text-center border-light">
         <div class="card-body">
-            <p>Last year and last month are averaged daily, last week is averaged hourly, other time-ranges are not averaged</p>
+            <p th:text="#{AveragedMessage}"></p>
         </div>
     </div>
 

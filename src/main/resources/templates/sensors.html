@@ -12,7 +12,7 @@
     <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
     <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
 
-    <title>Information</title>
+    <title>Sensors</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -24,8 +24,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
-            <li><a class="nav-item nav-link" href="/sensors">Sensors<span class="sr-only">(current)</span></a></li>
-            <li><a class="nav-item nav-link" href="/information">Information<span class="sr-only">(current)</span></a></li>
+            <li><a class="nav-item nav-link" href="/sensors" th:text="#{Sensors}"><span class="sr-only">(current)</span></a></li>
+            <li><a class="nav-item nav-link" href="/information" th:text="#{Information}"><span class="sr-only">(current)</span></a></li>
         </ul>
     </div>
 </nav>
@@ -34,19 +34,15 @@
 
     <div class="card text-center border-light">
         <div class="card-body">
-            <h5 class="card-title">Sensors</h5>
-            <p class="card-text">
-                Here will be map with sensors<br>
-            </p>
+            <h5 class="card-title" th:text="#{MapOfSensors}"></h5>
         </div>
     </div>
 
-<!--    <div style="width: 640px; height: 480px" id="mapContainer"></div>-->
     <div style="position: relative; height:50vh" id="mapContainer"></div>
 
     <div class="card text-center border-light">
         <div class="card-body">
-            <h5 class="card-title">List of sensors</h5>
+            <h5 class="card-title" th:text="#{ListOfSensors}"></h5>
         </div>
     </div>
 
@@ -54,21 +50,19 @@
         <table class="table table-stripped">
             <thead>
             <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Name</th>
-                <th scopr="col">Longitude</th>
-                <th scope="col">Latitude</th>
+                <th scope="col" th:text="#{Name}"></th>
+                <th scopr="col" th:text="#{Longitude}"></th>
+                <th scope="col" th:text="#{Latitude}"></th>
                 <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="sensor: ${sensors}">
-                <td><p th:text="${sensor.id}"/></td>
                 <td><p th:text="${sensor.name}"/></td>
                 <td><p th:text="${sensor.longitude}"/></td>
                 <td><p th:text="${sensor.latitude}"/></td>
                 <td>
-                    <a th:href="@{'/sensor/' + ${sensor.id} + '?time-range=day'}" class="btn btn-primary">Details</a>
+                    <a th:href="@{'/sensor/' + ${sensor.id} + '?time-range=day'}" class="btn btn-primary" th:text="#{Details}"></a>
                 </td>
             </tr>
             </tbody>
