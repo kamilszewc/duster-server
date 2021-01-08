@@ -1,6 +1,6 @@
 ### Changelog
 
-#### v0.15-alpha (8.01.2021)
+#### v0.16-alpha (8.01.2021)
 - Internationalization: eng and pol
 
 #### v0.14-alpha (8.01.2021)
