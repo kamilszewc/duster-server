@@ -1,5 +1,8 @@
 ### Changelog
 
+#### v0.18-alpha (9.01.2021)
+- Improved map (markers references)
+
 #### v0.17-alpha (9.01.2021)
 - Enlarged map markers
 - More internationalization options
