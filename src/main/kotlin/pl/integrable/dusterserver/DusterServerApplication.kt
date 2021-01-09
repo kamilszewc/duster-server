@@ -29,11 +29,11 @@ class DusterServerApplication {
     @Bean
     fun init(sensorRepository: SensorRepository, pmMeasurementRepository: PmMeasurementRepository) = CommandLineRunner {
 
-//        var sensor = Sensor("name", "email@email", 18.59814, 53.01375, 100.0)
-//        sensorRepository.save(sensor)
-//
-//        var pmMeasurement = PmMeasurement(1.0, 1.0, 1.0, LocalDateTime.now(), sensor)
-//        pmMeasurementRepository.save(pmMeasurement)
+        var sensor = Sensor("name", "email@email", 18.59814, 53.01375, 100.0)
+        sensorRepository.save(sensor)
+
+        var pmMeasurement = PmMeasurement(1.0, 1.0, 1.0, LocalDateTime.now(), sensor)
+        pmMeasurementRepository.save(pmMeasurement)
 
     }
 

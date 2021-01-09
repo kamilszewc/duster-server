@@ -88,6 +88,27 @@
         map.setZoom(/*[[${zoom}]]*/ 12);
     }
 
+    function pointer(color, link) {
+        return '<svg width="30" height="30" ' +
+            'xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink">' +
+            //'<a href="' + link + '">' +
+            '<circle fill="' + color + '" cx="12" cy="12" r="12" width="30 height="30" />' +
+            '<text x="12" y="18" font-size="12pt" font-family="Arial" font-weight="bold" text-anchor="middle" ' +
+            'fill="white">S</text>' +
+            //'</a>' +
+            '</svg>';
+    }
+
+    function addSensor(group, lat, lng, color, link) {
+        //Create an icon object, an object with geographic coordinates and a marker:
+        var icon = new H.map.DomIcon(pointer(color, link)),
+            coords = {lat: lat, lng: lng},
+            marker = new H.map.DomMarker(coords, {icon: icon});
+
+        marker.setData(link)
+        group.addObject(marker);
+    }
+
     // Initialize the platform object:
     var platform = new H.service.Platform({
         'apikey': /*[[${apikey}]]*/ ''
@@ -108,54 +129,23 @@
 
     var ui = H.ui.UI.createDefault(map, defaultLayers)
 
-    var mapSettings = ui.getControl('mapsettings');
-    var zoom = ui.getControl('zoom');
-    var scalebar = ui.getControl('scalebar');
-
-    mapSettings.setAlignment('top-left');
-    zoom.setAlignment('top-left');
-    scalebar.setAlignment('top-left');
-
-    // add a resize listener to make sure that the map occupies the whole container
-    window.addEventListener('resize', () => map.getViewPort().resize());
-
-    // Make the map interactive
-    // MapEvents enables the event system
     // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
     var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
-    // Create the default UI components
-    var ui = H.ui.UI.createDefault(map, defaultLayers);
+    var group = new H.map.Group();
+    map.addObject(group)
 
+    group.addEventListener('tap', function (evt) {
+        window.location.href = evt.target.getData()
+    }, false);
 
-    function pointer(color, link) {
-        return '<svg width="30" height="30" ' +
-            'xmlns="http://www.w3.org/2000/svg">' +
-            '<a xlink:href="' + link + '">' +
-            '<circle fill="' + color + '" cx="12" cy="12" r="12" width="30 height="30" />' +
-            '<text x="12" y="18" font-size="12pt" font-family="Arial" font-weight="bold" text-anchor="middle" ' +
-            'fill="white">S</text>' +
-            '</a>' +
-            '</svg>';
-    }
+    const longitudes = /*[[${longitudes}]]*/ [];
+    const latitudes = /*[[${latitudes}]]*/ [];
+    const colors = /*[[${colors}]]*/ [];
+    const links = /*[[${links}]]*/ [];
 
-    function addSensor(map, lat, lng, color, link) {
-
-        // Create an icon object, an object with geographic coordinates and a marker:
-        var icon = new H.map.DomIcon(pointer(color, link)),
-            coords = {lat: lat, lng: lng},
-            marker = new H.map.DomMarker(coords, {icon: icon});
-
-        map.addObject(marker);
-    }
-
-    var longitudes = /*[[${longitudes}]]*/ []
-    var latitudes = /*[[${latitudes}]]*/ []
-    var colors = /*[[${colors}]]*/ []
-    var links = /*[[${links}]]*/ []
-
-    for (i = 0; i< longitudes.length; i++) {
-        addSensor(map, latitudes[i], longitudes[i], colors[i], links[i])
+    for (let i = 0; i< longitudes.length; i++) {
+        addSensor(group, latitudes[i], longitudes[i], colors[i], links[i])
     }
 
     // Now use the map as required...
