@@ -12,6 +12,33 @@ class PmMeasurementProvider @Autowired constructor(val pmMeasurementRepository: 
 
     fun provideLastMeasurements(fromlocalDateTime: LocalDateTime, averageType: String, sensor: Sensor) : List<PmMeasurementExchange> {
 
+        if (averageType == "15min") {
+            val averagedPmMeasurements : MutableList<PmMeasurementExchange> = mutableListOf()
+
+            var untilMoment = LocalDateTime.now()
+
+            while (untilMoment.isAfter(fromlocalDateTime)) {
+
+                val fromMoment = untilMoment.minusMinutes(15L)
+                val measurement = PmMeasurementExchange(0.0, 0.0, 0.0, untilMoment.plusMinutes(7L).plusSeconds(30L))
+                val measurements = pmMeasurementRepository.findAllByDateBetweenAndSensor(fromMoment, untilMoment, sensor)
+
+                measurements.forEach {
+                    measurement.pm10 += it.pm10
+                    measurement.pm25 += it.pm25
+                    measurement.pm100 += it.pm100
+                }
+
+                measurement.pm10 /= measurements.size
+                measurement.pm25 /= measurements.size
+                measurement.pm100 /= measurements.size
+
+                averagedPmMeasurements.add(measurement)
+
+                untilMoment = fromMoment
+            }
+            return averagedPmMeasurements.reversed();
+        }
         if (averageType == "hourly") {
             val averagedPmMeasurements : MutableList<PmMeasurementExchange> = mutableListOf()
 

@@ -17,6 +17,33 @@ class TemperatureMeasurementProvider @Autowired constructor(val temperatureMeasu
         sensor: Sensor
     ): List<TemperatureMeasurementExchange> {
 
+        if (averageType == "15min") {
+            val averagedTemperatureMeasurements: MutableList<TemperatureMeasurementExchange> = mutableListOf()
+
+            var untilMoment = LocalDateTime.now()
+
+            while (untilMoment.isAfter(fromlocalDateTime)) {
+
+                val fromMoment = untilMoment.minusMinutes(15L)
+                val measurement = TemperatureMeasurementExchange(
+                    0.0,
+                    untilMoment.plusMinutes(7L).plusSeconds(30L)
+                )
+                val measurements = temperatureMeasurementRepository.findAllByDateBetweenAndSensor(fromMoment, untilMoment, sensor)
+
+                measurements.forEach {
+                    measurement.temperature += it.temperature
+                }
+
+                measurement.temperature /= measurements.size
+
+                averagedTemperatureMeasurements.add(measurement)
+
+                untilMoment = fromMoment
+            }
+            return averagedTemperatureMeasurements.reversed();
+
+        }
         if (averageType == "hourly") {
             val averagedTemperatureMeasurements: MutableList<TemperatureMeasurementExchange> = mutableListOf()
 

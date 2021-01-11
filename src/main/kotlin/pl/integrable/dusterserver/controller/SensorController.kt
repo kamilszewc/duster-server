@@ -51,7 +51,7 @@ class SensorController {
         }
         else if (timeRange == "day") {
             localTimeDate = localTimeDate.minusDays(1)
-            averageType = "none"
+            averageType = "15min"
             pattern = "HH:mm"
         }
         else if (timeRange == "week") {

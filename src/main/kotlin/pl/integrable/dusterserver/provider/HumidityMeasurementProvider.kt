@@ -16,6 +16,33 @@ class HumidityMeasurementProvider @Autowired constructor(val humidityMeasurement
         sensor: Sensor
     ): List<HumidityMeasurementExchange> {
 
+
+        if (averageType == "15min") {
+            val averagedHumidityMeasurements: MutableList<HumidityMeasurementExchange> = mutableListOf()
+
+            var untilMoment = LocalDateTime.now()
+
+            while (untilMoment.isAfter(fromlocalDateTime)) {
+
+                val fromMoment = untilMoment.minusMinutes(15L)
+                val measurement = HumidityMeasurementExchange(
+                    0.0,
+                    untilMoment.plusMinutes(7L).plusSeconds(30L)
+                )
+                val measurements = humidityMeasurementRepository.findAllByDateBetweenAndSensor(fromMoment, untilMoment, sensor)
+
+                measurements.forEach {
+                    measurement.humidity += it.humidity
+                }
+
+                measurement.humidity /= measurements.size
+
+                averagedHumidityMeasurements.add(measurement)
+
+                untilMoment = fromMoment
+            }
+            return averagedHumidityMeasurements.reversed();
+        }
         if (averageType == "hourly") {
             val averagedHumidityMeasurements: MutableList<HumidityMeasurementExchange> = mutableListOf()
 
