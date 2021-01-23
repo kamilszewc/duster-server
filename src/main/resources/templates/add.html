@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <title>Information</title>
+    <title th:text="#{JoinUs}"></title>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -19,9 +19,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
-            <li><a class="nav-item nav-link" href="/sensors" th:text="#{Sensors}"/></li>
-            <li><a class="nav-item nav-link" href="/add" th:text="#{JoinUs}"/></li>
-            <li><a class="nav-item nav-link active" href="/information" th:text="#{Information}"s><span class="sr-only">(current)</span></a></li>
+            <li><a class="nav-item nav-link" href="/sensors" th:text="#{Sensors}"></a></li>
+            <li><a class="nav-item nav-link active" href="/add" th:text="#{JoinUs}"><span class="sr-only">(current)</span></a></li>
+            <li><a class="nav-item nav-link" href="/information" th:text="#{Information}"></a></li>
         </ul>
     </div>
 </nav>
@@ -29,13 +29,12 @@
 <div class="container">
     <div class="card text-center border-light">
         <div class="card-body">
-            <h5 class="card-title" th:text="#{Information}"></h5>
+            <h5 class="card-title" th:text="#{JoinUs}"></h5>
             <p class="card-text">
-                Here will be some information about the system<br>
+                Here will be some information about how to join<br>
             </p>
         </div>
     </div>
-    <div th:text="#{Information}"></div>
 
 </div>
 

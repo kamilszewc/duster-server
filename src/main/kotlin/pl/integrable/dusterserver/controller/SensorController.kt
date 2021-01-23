@@ -79,8 +79,10 @@ class SensorController {
             val pmMeasurements = pmMeasurementProvider.provideLastMeasurements(localTimeDate, averageType, sensor.get())
 
             var havePm = false
-            if (pmMeasurements.size != 0) {
-                havePm = true
+            pmMeasurements.forEach {
+                if (it.pm10 == it.pm10 || it.pm25 == it.pm10 || it.pm100 == it.pm10) {
+                    havePm = true
+                }
             }
             model.addAttribute("havePm", havePm)
 
@@ -107,8 +109,11 @@ class SensorController {
             val temperatureMeasurements = temperatureMeasurementProvider.provideLastMeasurements(localTimeDate, averageType, sensor.get())
 
             var haveTemperature = false
-            if (temperatureMeasurements.size != 0) {
-                haveTemperature = true
+            temperatureMeasurements.forEach {
+                println("" + it.date + " " + it.temperature);
+                if (it.temperature == it.temperature) {
+                    haveTemperature = true
+                }
             }
             model.addAttribute("haveTemperature", haveTemperature)
 
@@ -129,8 +134,10 @@ class SensorController {
             val pressureMeasurements = pressureMeasurementProvider.provideLastMeasurements(localTimeDate, averageType, sensor.get())
 
             var havePressure = false
-            if (pressureMeasurements.size != 0) {
-                havePressure = true
+            pressureMeasurements.forEach {
+                if (it.pressure == it.pressure) {
+                    havePressure = true
+                }
             }
             model.addAttribute("havePressure", havePressure)
 
@@ -150,8 +157,10 @@ class SensorController {
             val humidityMeasurements = humidityMeasurementProvider.provideLastMeasurements(localTimeDate, averageType, sensor.get())
 
             var haveHumidity = false
-            if (humidityMeasurements.size != 0) {
-                haveHumidity = true
+            humidityMeasurements.forEach {
+                if (it.humidity == it.humidity) {
+                    haveHumidity = true
+                }
             }
             model.addAttribute("haveHumidity", haveHumidity)
 
