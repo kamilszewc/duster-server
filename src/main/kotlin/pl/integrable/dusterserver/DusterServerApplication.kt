@@ -14,7 +14,9 @@ import java.util.Locale
 
 import org.springframework.web.servlet.i18n.SessionLocaleResolver
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor
+import pl.integrable.dusterserver.model.Content
 import pl.integrable.dusterserver.model.PmMeasurement
+import pl.integrable.dusterserver.repository.ContentRepository
 import pl.integrable.dusterserver.repository.PmMeasurementRepository
 import java.time.LocalDateTime
 
@@ -27,13 +29,16 @@ import java.time.LocalDateTime
 class DusterServerApplication {
 
     @Bean
-    fun init(sensorRepository: SensorRepository, pmMeasurementRepository: PmMeasurementRepository) = CommandLineRunner {
+    fun init(sensorRepository: SensorRepository, pmMeasurementRepository: PmMeasurementRepository, contentRepository: ContentRepository) = CommandLineRunner {
 
 //        var sensor = Sensor("name", "email@email", 18.59814, 53.01375, 100.0)
 //        sensorRepository.save(sensor)
 //
 //        var pmMeasurement = PmMeasurement(1.0, 1.0, 1.0, LocalDateTime.now(), sensor)
 //        pmMeasurementRepository.save(pmMeasurement)
+//
+//        var content = Content("Przyłącz się", "BleBleble")
+//        contentRepository.save(content)
 
     }
 

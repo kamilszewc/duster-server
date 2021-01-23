@@ -1,5 +1,8 @@
 ### Changelog
 
+#### v0.21-alpha (23.01.2021)
+- Added Content class - filled from db
+
 #### v0.18-alpha (9.01.2021)
 - Improved map (markers references)
 

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import pl.integrable.dusterserver.model.PmMeasurement
 import pl.integrable.dusterserver.model.Sensor
 import pl.integrable.dusterserver.property.MapProperties
+import pl.integrable.dusterserver.repository.ContentRepository
 import pl.integrable.dusterserver.repository.PmMeasurementRepository
 import pl.integrable.dusterserver.repository.SensorRepository
 import java.time.LocalDateTime
@@ -22,6 +23,9 @@ class SensorsController {
 
     @Autowired
     lateinit var pmMeasurementRepository: PmMeasurementRepository
+
+    @Autowired
+    lateinit var contentRepository: ContentRepository
 
     @GetMapping("/sensors")
     fun sensors(model: Model) : String {
@@ -70,6 +74,9 @@ class SensorsController {
         model.addAttribute("latitude", mapProperties.latitude)
         model.addAttribute("zoom", mapProperties.zoom)
         model.addAttribute("apikey", mapProperties.apikey)
+
+        val allContent = contentRepository.findAll();
+        model.addAttribute("allContent", allContent)
 
         return "sensors"
     }

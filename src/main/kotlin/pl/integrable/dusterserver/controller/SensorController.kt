@@ -11,6 +11,7 @@ import pl.integrable.dusterserver.provider.HumidityMeasurementProvider
 import pl.integrable.dusterserver.provider.TemperatureMeasurementProvider
 import pl.integrable.dusterserver.provider.PmMeasurementProvider
 import pl.integrable.dusterserver.provider.PressureMeasurementProvider
+import pl.integrable.dusterserver.repository.ContentRepository
 import pl.integrable.dusterserver.repository.SensorRepository
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -32,6 +33,9 @@ class SensorController {
 
     @Autowired
     lateinit var humidityMeasurementProvider: HumidityMeasurementProvider
+
+    @Autowired
+    lateinit var contentRepository: ContentRepository
 
 
     @GetMapping("/sensor/{sensorId}")
@@ -175,10 +179,11 @@ class SensorController {
             model.addAttribute("plotHumidityDate", plotHumidityDate)
             model.addAttribute("plotHumidity", plotHumidity)
 
-
-
             model.addAttribute("sensorId", sensorId)
             model.addAttribute("timeRange", timeRange)
+
+            val allContent = contentRepository.findAll();
+            model.addAttribute("allContent", allContent)
 
             return "sensor"
         }
