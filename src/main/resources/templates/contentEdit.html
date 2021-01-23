@@ -36,11 +36,24 @@
     <div class="card text-center border-light">
         <div class="card-body">
             <h5 class="card-title">Admin</h5>
-            <p class="card-text">
-                Admin blebleble<br>
-            </p>
         </div>
     </div>
+
+    <form method="post" th:action="@{'/content/edit?id=' + ${content.id} }" enctype="application/json">
+        <div class="form-group">
+            <textarea id="content" name="content" class="form-control" th:utext="${content.content}"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <script>
+        var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("code"), {
+            value: "<p></p>\n",
+            mode:  "htmlmixed",
+            indentUnit: 4,
+            indentWithTabs: true
+        });
+    </script>
 
 </div>
 
