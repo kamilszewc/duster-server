@@ -40,7 +40,7 @@ class SensorsController {
         val links: MutableList<String> = mutableListOf();
         sensors.forEach {
 
-            val pmMeasurements = pmMeasurementRepository.findAllByDateBetweenAndSensor(LocalDateTime.now().minusMinutes(15), LocalDateTime.now(), it)
+            val pmMeasurements = pmMeasurementRepository.findAllByDateBetweenAndSensor(LocalDateTime.now().minusMinutes(61), LocalDateTime.now(), it)
             var pm10 = 0.0
             var pm25 = 0.0
             var pm100 = 0.0
