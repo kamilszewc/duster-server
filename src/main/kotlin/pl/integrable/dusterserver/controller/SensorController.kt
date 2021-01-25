@@ -90,19 +90,22 @@ class SensorController {
             }
             model.addAttribute("havePm", havePm)
 
-            val plotPmDate: MutableList<String> = mutableListOf()
-            val plotPm10: MutableList<Double> = mutableListOf()
-            val plotPm25: MutableList<Double> = mutableListOf()
-            val plotPm100: MutableList<Double> = mutableListOf()
+            val plotPmDate: MutableList<String?> = mutableListOf()
+            val plotPm10: MutableList<Double?> = mutableListOf()
+            val plotPm25: MutableList<Double?> = mutableListOf()
+            val plotPm100: MutableList<Double?> = mutableListOf()
 
             pmMeasurements.forEach { measurement ->
                 measurement.date?.let { plotPmDate.add(it.format(DateTimeFormatter.ofPattern(pattern))) }
                 if (measurement.pm10 == measurement.pm10 && measurement.pm10 != 0.0)
                     plotPm10.add(measurement.pm10)
+                else plotPm10.add(null)
                 if (measurement.pm25 == measurement.pm25 && measurement.pm25 != 0.0)
                     plotPm25.add(measurement.pm25)
+                else plotPm25.add(null)
                 if (measurement.pm100 == measurement.pm100 && measurement.pm100 != 0.0)
                     plotPm100.add(measurement.pm100)
+                else plotPm100.add(null)
             }
 
             model.addAttribute("plotPmDate", plotPmDate)
