@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "pl.integrable"
-version = "v0.23-alpha"
+version = "v0.24-alpha"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 configurations {

@@ -10,6 +10,7 @@ class Sensor(
     var longitude: Double,
     var latitude: Double,
     var altitude: Double,
+    var type: String,
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null

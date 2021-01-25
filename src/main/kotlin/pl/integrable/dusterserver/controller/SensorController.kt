@@ -97,8 +97,11 @@ class SensorController {
 
             pmMeasurements.forEach { measurement ->
                 measurement.date?.let { plotPmDate.add(it.format(DateTimeFormatter.ofPattern(pattern))) }
-                plotPm10.add(measurement.pm10)
-                plotPm25.add(measurement.pm25)
+                if (measurement.pm10 != null)
+                    plotPm10.add(measurement.pm10)
+                if (measurement.pm25 != null)
+                    plotPm25.add(measurement.pm25)
+                if (measurement.pm100 != null)
                 plotPm100.add(measurement.pm100)
             }
 
