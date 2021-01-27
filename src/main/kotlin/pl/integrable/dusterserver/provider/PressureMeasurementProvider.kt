@@ -53,7 +53,7 @@ class PressureMeasurementProvider @Autowired constructor(val pressureMeasurement
                 val fromMoment = untilMoment.minusHours(4)
                 val measurement = PressureMeasurementExchange(
                     0.0,
-                    untilMoment.withMinute(120)
+                    untilMoment.plusHours(2)
                 )
                 val measurements = pressureMeasurementRepository.findAllByDateBetweenAndSensor(fromMoment, untilMoment, sensor)
 

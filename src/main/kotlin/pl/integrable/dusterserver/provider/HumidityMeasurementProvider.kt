@@ -53,7 +53,7 @@ class HumidityMeasurementProvider @Autowired constructor(val humidityMeasurement
                 val fromMoment = untilMoment.minusHours(4)
                 val measurement = HumidityMeasurementExchange(
                     0.0,
-                    untilMoment.withMinute(120)
+                    untilMoment.plusHours(2)
                 )
                 val measurements = humidityMeasurementRepository.findAllByDateBetweenAndSensor(fromMoment, untilMoment, sensor)
 

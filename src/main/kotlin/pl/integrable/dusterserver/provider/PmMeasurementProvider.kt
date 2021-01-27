@@ -47,7 +47,7 @@ class PmMeasurementProvider @Autowired constructor(val pmMeasurementRepository: 
             while (untilMoment.isAfter(fromlocalDateTime)) {
 
                 val fromMoment = untilMoment.minusHours(4)
-                val measurement = PmMeasurementExchange(0.0, 0.0, 0.0, untilMoment.withMinute(120))
+                val measurement = PmMeasurementExchange(0.0, 0.0, 0.0, untilMoment.plusHours(2))
                 val measurements = pmMeasurementRepository.findAllByDateBetweenAndSensor(fromMoment, untilMoment, sensor)
 
                 measurements.forEach {

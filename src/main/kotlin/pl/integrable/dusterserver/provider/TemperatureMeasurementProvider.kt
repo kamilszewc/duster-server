@@ -54,7 +54,7 @@ class TemperatureMeasurementProvider @Autowired constructor(val temperatureMeasu
                 val fromMoment = untilMoment.minusHours(4)
                 val measurement = TemperatureMeasurementExchange(
                     0.0,
-                    untilMoment.withMinute(120)
+                    untilMoment.plusHours(2)
                 )
                 val measurements = temperatureMeasurementRepository.findAllByDateBetweenAndSensor(fromMoment, untilMoment, sensor)
 
