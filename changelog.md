@@ -1,5 +1,8 @@
 ### Changelog
 
+#### v0.28-alpha (27.01.2021)
+- Updated method of averaging
+
 #### v0.21-alpha (23.01.2021)
 - Added Content class - filled from db
 

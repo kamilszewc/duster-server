@@ -56,11 +56,11 @@ class SensorsController {
             pm25 /= pmMeasurements.size
             pm100 /= pmMeasurements.size
 
-            var color: String = "black" // General is green
-            if (pm10 > 0.0 && pm25 > 0.0 && pm100 > 0.0) color = "green" // Sensor is dead
-            if (pm10 > 40.0 || pm25 > 20.0 || pm100 > 20.0) color = "yellow" // Mediom
+            var color: String = "black" // Sensor id dead
+            if (pm10 <=40.0 || pm25 <=20.0 || pm100 <=20.0) color = "green" // Sensor is green
+            if (pm10 > 40.0 || pm25 > 20.0 || pm100 > 20.0) color = "yellow" // Medium
             if (pm10 > 60.0 || pm25 > 40.0 || pm100 > 40.0) color = "orange"
-            if (pm10 > 80.0 || pm25 > 60.0 || pm100 > 60.0) color = "red"
+            if (pm10 > 80.0 || pm25 > 60.0 || pm100 > 60.0) color = "red" // Really bad
 
             longitudes.add(it.longitude)
             latitudes.add(it.latitude)

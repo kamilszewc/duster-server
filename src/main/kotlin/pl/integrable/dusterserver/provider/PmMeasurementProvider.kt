@@ -12,15 +12,15 @@ class PmMeasurementProvider @Autowired constructor(val pmMeasurementRepository: 
 
     fun provideLastMeasurements(fromlocalDateTime: LocalDateTime, averageType: String, sensor: Sensor) : List<PmMeasurementExchange> {
 
-        if (averageType == "15min") {
+        if (averageType == "30min") {
             val averagedPmMeasurements : MutableList<PmMeasurementExchange> = mutableListOf()
 
             var untilMoment = LocalDateTime.now()
 
             while (untilMoment.isAfter(fromlocalDateTime)) {
 
-                val fromMoment = untilMoment.minusMinutes(15L)
-                val measurement = PmMeasurementExchange(0.0, 0.0, 0.0, untilMoment.plusMinutes(7L).plusSeconds(30L))
+                val fromMoment = untilMoment.minusMinutes(30L)
+                val measurement = PmMeasurementExchange(0.0, 0.0, 0.0, untilMoment.plusMinutes(15L))
                 val measurements = pmMeasurementRepository.findAllByDateBetweenAndSensor(fromMoment, untilMoment, sensor)
 
                 measurements.forEach {
@@ -39,15 +39,15 @@ class PmMeasurementProvider @Autowired constructor(val pmMeasurementRepository: 
             }
             return averagedPmMeasurements.reversed();
         }
-        if (averageType == "hourly") {
+        if (averageType == "4hourly") {
             val averagedPmMeasurements : MutableList<PmMeasurementExchange> = mutableListOf()
 
-            var untilMoment = LocalDateTime.now().plusHours(1).withMinute(0).withSecond(0)
+            var untilMoment = LocalDateTime.now().plusHours(4).withMinute(0).withSecond(0)
 
             while (untilMoment.isAfter(fromlocalDateTime)) {
 
-                val fromMoment = untilMoment.minusHours(1)
-                val measurement = PmMeasurementExchange(0.0, 0.0, 0.0, untilMoment.withMinute(30))
+                val fromMoment = untilMoment.minusHours(4)
+                val measurement = PmMeasurementExchange(0.0, 0.0, 0.0, untilMoment.withMinute(120))
                 val measurements = pmMeasurementRepository.findAllByDateBetweenAndSensor(fromMoment, untilMoment, sensor)
 
                 measurements.forEach {

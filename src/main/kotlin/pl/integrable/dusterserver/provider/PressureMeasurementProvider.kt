@@ -16,17 +16,17 @@ class PressureMeasurementProvider @Autowired constructor(val pressureMeasurement
         sensor: Sensor
     ): List<PressureMeasurementExchange> {
 
-        if (averageType == "15min") {
+        if (averageType == "30min") {
             val averagedPressureMeasurements: MutableList<PressureMeasurementExchange> = mutableListOf()
 
             var untilMoment = LocalDateTime.now()
 
             while (untilMoment.isAfter(fromlocalDateTime)) {
 
-                val fromMoment = untilMoment.minusMinutes(15L)
+                val fromMoment = untilMoment.minusMinutes(30L)
                 val measurement = PressureMeasurementExchange(
                     0.0,
-                    untilMoment.plusMinutes(7L).plusSeconds(30L)
+                    untilMoment.plusMinutes(15L)
                 )
                 val measurements = pressureMeasurementRepository.findAllByDateBetweenAndSensor(fromMoment, untilMoment, sensor)
 
@@ -43,17 +43,17 @@ class PressureMeasurementProvider @Autowired constructor(val pressureMeasurement
             return averagedPressureMeasurements.reversed();
 
         }
-        if (averageType == "hourly") {
+        if (averageType == "4hourly") {
             val averagedPressureMeasurements: MutableList<PressureMeasurementExchange> = mutableListOf()
 
-            var untilMoment = LocalDateTime.now().plusHours(1).withMinute(0).withSecond(0)
+            var untilMoment = LocalDateTime.now().plusHours(4).withMinute(0).withSecond(0)
 
             while (untilMoment.isAfter(fromlocalDateTime)) {
 
-                val fromMoment = untilMoment.minusHours(1)
+                val fromMoment = untilMoment.minusHours(4)
                 val measurement = PressureMeasurementExchange(
                     0.0,
-                    untilMoment.withMinute(30)
+                    untilMoment.withMinute(120)
                 )
                 val measurements = pressureMeasurementRepository.findAllByDateBetweenAndSensor(fromMoment, untilMoment, sensor)
 
