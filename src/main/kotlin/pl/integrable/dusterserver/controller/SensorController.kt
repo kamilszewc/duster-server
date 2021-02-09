@@ -120,7 +120,6 @@ class SensorController {
 
             var haveTemperature = false
             temperatureMeasurements.forEach {
-                println("" + it.date + " " + it.temperature);
                 if (it.temperature == it.temperature) {
                     haveTemperature = true
                 }

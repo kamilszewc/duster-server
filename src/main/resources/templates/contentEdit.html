@@ -7,16 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <script src="javascript/codemirror.js"></script>
-    <link rel="stylesheet" href="css/codemirror.css">
-    <script src="javascript/htmlmixed.js"></script>
+    <script src="/javascript/codemirror/lib/codemirror.js"></script>
+    <link rel="stylesheet" href="/javascript/codemirror/lib/codemirror.css">
+    <script src="/javascript/codemirror/mode/javascript/javascript.js"></script>
+    <script src="/javascript/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="/javascript/codemirror/mode/xml/xml.js"></script>
+    <script src="/javascript/codemirror/mode/css/css.js"></script>
 
     <title>Admin</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/">
-        <img class="d-inline-block align-top" th:src="@{/images/logo.png}" alt="" width="30" height="30"/> Duster sensor
+        <img class="d-inline-block align-top" th:src="@{/images/logo.png}" alt="" width="30" height="30"/><span th:text="${@environment.getProperty('spring.application.name')}"/>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -47,11 +50,12 @@
     </form>
 
     <script>
-        var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("code"), {
+        var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("content"), {
             value: "<p></p>\n",
             mode:  "htmlmixed",
             indentUnit: 4,
-            indentWithTabs: true
+            indentWithTabs: true,
+            lineNumbers: true
         });
     </script>
 
