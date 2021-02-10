@@ -16,6 +16,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor
 import pl.integrable.dusterserver.model.Content
 import pl.integrable.dusterserver.model.PmMeasurement
+import pl.integrable.dusterserver.property.FileStorageProperties
 import pl.integrable.dusterserver.repository.ContentRepository
 import pl.integrable.dusterserver.repository.PmMeasurementRepository
 import java.time.LocalDateTime
@@ -24,7 +25,8 @@ import java.time.LocalDateTime
 @SpringBootApplication
 @EnableConfigurationProperties(
     CredentialsProperties::class,
-    MapProperties::class
+    MapProperties::class,
+    FileStorageProperties::class
 )
 class DusterServerApplication {
 

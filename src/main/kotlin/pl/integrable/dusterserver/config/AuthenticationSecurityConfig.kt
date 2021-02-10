@@ -46,6 +46,7 @@ class AuthenticationSecurityConfig  : WebSecurityConfigurerAdapter() {
             .and()
             .authorizeRequests()
             .antMatchers("/api/v1/admin/**").hasRole("ADMIN")
+            .antMatchers("/api/v1/content/**").hasRole("ADMIN")
             .antMatchers("/api/v1/**").hasRole("SENSOR")
             .antMatchers("/admin/**").hasRole("ADMIN")
             .antMatchers("/**").permitAll()

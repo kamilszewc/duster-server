@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestParam
+import pl.integrable.dusterserver.controller.rest.ContentRestContoller
 import pl.integrable.dusterserver.model.Content
 import pl.integrable.dusterserver.repository.ContentRepository
 import java.awt.PageAttributes
@@ -17,6 +18,9 @@ class ContentController {
 
     @Autowired
     lateinit var contentRepository: ContentRepository
+
+    @Autowired
+    lateinit var contentRestContoller: ContentRestContoller
 
     @GetMapping("/content")
     fun information(@RequestParam(name = "id", required = true) id: Long,
@@ -41,10 +45,12 @@ class ContentController {
 
         val allContent = contentRepository.findAll()
         val content = contentRepository.findById(id)
+        val files = contentRestContoller.fileList().body
 
         if (content.isPresent) {
             model.addAttribute("allContent", allContent)
             model.addAttribute("content", content.get())
+            model.addAttribute("files", files)
         }
 
         return "contentEdit"
